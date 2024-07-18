@@ -1,5 +1,31 @@
 #include "encoderdecoder_infer.h"
 
+// Helper function to allocate device memory
+void *allocateDeviceMemory(size_t size)
+{
+    void *devPtr;
+    cudaMalloc(&devPtr, size);
+    return devPtr;
+}
+
+// Helper function to free device memory
+void freeDeviceMemory(void *devPtr)
+{
+    cudaFree(devPtr);
+}
+
+// Helper function to copy data from host to device
+void copyToDevice(void *dst, const void *src, size_t size)
+{
+    cudaMemcpy(dst, src, size, cudaMemcpyHostToDevice);
+}
+
+// Helper function to copy data from device to host
+void copyToHost(void *dst, const void *src, size_t size)
+{
+    cudaMemcpy(dst, src, size, cudaMemcpyDeviceToHost);
+}
+
 int T5Inference::Init(
     const std::string &enginePath, const int maxBatchSize, const int seqLength, const bool enableGraph)
 // : mSeqLength(seqLength), mEnableGraph(enableGraph)
@@ -15,7 +41,11 @@ int T5Inference::Init(
         gLogInfo << "CUDA Graph is disabled\n";
     }
     gLogInfo << "--------------------\n";
-    initLibNvInferPlugins(&gLogger, "");
+    int ret = initLibNvInferPlugins(&gLogger, ""); //// 初始化插件 ,"" 表示初始化所有插件通常在构建引擎
+    if (ret)
+    {
+        gLogInfo << "初始化插件成功\n";
+    }
 
     gLogInfo << "Loading BERT Inference Engine ... \n";
     std::ifstream input(enginePath, std::ios::binary);
@@ -49,8 +79,10 @@ int T5Inference::Init(
         return -1;
     }
     gLogInfo << "Done\n";
-
+    // getNbIOTensors() 函数返回引擎中 IO 张量的总数
     mEnableVariableLen = mEngine->getNbIOTensors() == kBERT_INPUT_NUM + 1 ? false : true;
+     gLogInfo << "IO 张量的总数:"<<mEngine->getNbIOTensors()<<"\n";
+    mEnableVariableLen = true; // wzp-add
     if (mEnableVariableLen)
     {
         gLogInfo << "Variable length is enabled\n";
@@ -124,16 +156,39 @@ void T5Inference::allocateBindings(const int maxBatchSize)
 
 void T5Inference::prepare(int profIdx, int batchSize)
 {
+    int numProfiles = mEngine->getNbOptimizationProfiles();
+    gLogInfo << "numProfiles:" << numProfiles << "\n";
+    profIdx = std::min(numProfiles - 1, profIdx);
 
     mContext->setOptimizationProfileAsync(profIdx, mStream);
+    // nvinfer1::Dims engineDims = mEngine->getInput(0).desc.dims; // 获取输入张量的原始维度
 
     if (mEnableVariableLen)
     {
-        const int allocationSizes[] = {mSeqLength * batchSize, mSeqLength * batchSize, batchSize + 1, mSeqLength};
-        for (int i = 0; i < sizeof(allocationSizes) / sizeof(allocationSizes[0]); i++)
+        const int allocationSizes[] = {mSeqLength * batchSize}; // input_ids
+        for (int i = 0; i < kBERT_INPUT_NUM; i++)
         {
-            auto const tensorName = mEngine->getIOTensorName(i % mEngine->getNbIOTensors());
-            mContext->setInputShape(tensorName, Dims{1, {allocationSizes[i]}});
+            auto const tensorName = mEngine->getIOTensorName(i);
+            gLogInfo << "i:" << i << ",inputtensorName:" << tensorName << "\n";
+            Dims inputdims = mEngine->getTensorShape(tensorName);
+            int32_t nbDims = inputdims.nbDims;
+            //! The extent of each dimension.
+            int64_t d[8];
+            gLogInfo << "nbDims:" << nbDims << "\n";
+            for (int m = 0; m < nbDims; m++)
+            {
+                gLogInfo << "dim:" << m << ", size:" << inputdims.d[m] << "\n";
+            }
+
+            // int bindingIndex = mEngine->getBindingIndex(tensorName);
+            // if (bindingIndex != -1) {
+            //     nvinfer1::Dims engineDims = mEngine->getBindingDimensions(bindingIndex);
+            //     // 现在可以使用 engineDims
+            // } else {
+            //     // 处理错误，输入张量名未找到
+            // }
+            mContext->setInputShape(tensorName, inputdims);
+            // mContext->setInputShape(tensorName, Dims2(batchSize, mSeqLength));
         }
     }
     else
@@ -155,7 +210,9 @@ void T5Inference::prepare(int profIdx, int batchSize)
     {
         for (int32_t i = 0; i < mEngine->getNbIOTensors(); i++)
         {
+         
             auto const &name = mEngine->getIOTensorName(i);
+            gLogInfo << "i:" << i << ",outtensorName:" << name << "\n";
             mContext->setTensorAddress(name, mDeviceBuffers[i]);
         }
 
@@ -253,31 +310,26 @@ void T5Inference::run(const void *const *inputBuffers, int warmUps, int iteratio
     mTimes.push_back(times);
 }
 
-void T5Inference::InferT5(const void *const *inputBuffers)
+// void T5Inference::InferT5(const void *const *inputBuffers)
+void T5Inference::InferT5(std::vector<int> inputs)
 {
+    prepare(1, 1);
+    std::vector<int> vec = {13959, 1566, 12, 2379, 10, 27, 47, 3, 9, 7584, 13, 3, 9, 939, 13, 10649, 5, 1};
+    const void *inputIds = static_cast<const void *>(vec.data());
+    const std::vector<const void *> inputBuffers = {inputIds, mCuSeqlens.data()};
     for (int i = 0; i < kBERT_INPUT_NUM; i++)
     {
         gpuErrChk(
             cudaMemcpyAsync(mDeviceBuffers[i], inputBuffers[i], mInputSizes[i], cudaMemcpyHostToDevice, mStream));
     }
-    int warmUps=10;
-    gLogInfo << "Warming up " << warmUps << " iterations ...\n";
-    for (int it = 0; it < warmUps; it++)
+
+    bool status = mContext->enqueueV3(mStream);
+    if (!status)
     {
-        if (mEnableGraph)
-        {
-            gpuErrChk(cudaGraphLaunch(mExecGraph, mStream));
-        }
-        else
-        {
-            bool status = mContext->enqueueV3(mStream);
-            if (!status)
-            {
-                gLogError << "Enqueue failed\n";
-                exit(-1);
-            }
-        }
+        gLogError << "Enqueue failed\n";
+        exit(-1);
     }
+
     gpuErrChk(cudaStreamSynchronize(mStream));
 
     cudaEvent_t start, stop;
@@ -285,7 +337,7 @@ void T5Inference::InferT5(const void *const *inputBuffers)
     gpuErrChk(cudaEventCreate(&stop));
 
     std::vector<float> times;
-    int iterations=10;
+    int iterations = 1;
     gLogInfo << "Running " << iterations << " iterations ...\n";
     for (int it = 0; it < iterations; it++)
     {
@@ -311,61 +363,26 @@ void T5Inference::InferT5(const void *const *inputBuffers)
     }
 
     gpuErrChk(cudaMemcpyAsync(
-        mHostOutput.data(), mDeviceBuffers[mEnableVariableLen ? kBERT_INPUT_NUM + 1 : kBERT_INPUT_NUM], mOutputSize, cudaMemcpyDeviceToHost, mStream));
+        mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost, mStream));
 
     gpuErrChk(cudaStreamSynchronize(mStream));
-
-    // 假设outputDims是已知的输出维度
-nvinfer1::Dims outputDims;
-// 获取输出层
-std::vector<nvinfer1::IOutput*> outputs;
-mEngine->getOutputs(outputs);
-assert(outputs.size() > 0 && "No output found");
-// gLogError << "Enqueue failed\n";
-
-
-// // 为输出分配GPU内存
-// void* buffers[outputs.size()];
-// for (size_t i = 0; i < outputs.size(); ++i) {
-//     cudaMalloc(&buffers[i], outputs[i]->getVolume() * sizeof(float));
-// }
-
-// // 执行推理（你的代码片段已包含此部分）
-
-// // 将输出数据从GPU复制到CPU
-// float* outputHostBuffer = new float[outputDims.d[0] * ... /* 根据dim填充 */];
-// cudaMemcpyAsync(outputHostBuffer, buffers[0], outputs[0]->getVolume() * sizeof(float), cudaMemcpyDeviceToHost, mStream);
-// gpuErrChk(cudaStreamSynchronize(mStream)); // 确保数据复制完成
-
-// // 解析并打印输出结果
-// for (size_t i = 0; i < outputDims.d[0] * ...; ++i) { // 根据输出维度循环
-//     std::cout << "Output Value at index " << i << ": " << outputHostBuffer[i] << std::endl;
-// }
-
-// // 清理
-// delete[] outputHostBuffer;
-// for (auto& buffer : buffers) {
-//     cudaFree(buffer);
-// }
 
     mTimes.push_back(times);
 }
 
-
-void T5Inference::RunT5(const void *inputIds )
-{
-    if (mEnableVariableLen)
-    {
-        const std::vector<const void *> inputBuffers = {inputIds ,mCuSeqlens.data()};
-        InferT5(inputBuffers.data());
-    }
-    else
-    {
-        const std::vector<const void *> inputBuffers = {inputIds};
-        InferT5(inputBuffers.data());
-    }
-}
-
+// void T5Inference::RunT5(const void *inputIds )
+// {
+//     if (mEnableVariableLen)
+//     {
+//         const std::vector<const void *> inputBuffers = {inputIds ,mCuSeqlens.data()};
+//         InferT5(inputBuffers.data());
+//     }
+//     else
+//     {
+//         const std::vector<const void *> inputBuffers = {inputIds};
+//         InferT5(inputBuffers.data());
+//     }
+// }
 
 void T5Inference::run(const void *inputIds, const void *segmentIds, const void *inputMask, int warmUps, int iterations)
 {
@@ -408,12 +425,3 @@ void T5Inference::reportTiming(int batchIndex, int batchSize)
     gLogInfo << "\tThroughput: " << throughput << " sentences/s\n";
 }
 
-// ~T5Inference::T5Inference()
-// {
-//     gpuErrChk(cudaStreamDestroy(mStream));
-
-//     for (auto &buf : mDeviceBuffers)
-//     {
-//         gpuErrChk(cudaFree(buf));
-//     }
-// }

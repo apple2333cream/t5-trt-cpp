@@ -39,9 +39,13 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-deprecated-declarations")
 # set_ifndef(TRT_INC_DIR $ENV{TRT_OSSPATH}/include)
 # set_ifndef(TRT_LIB_DIR $ENV{TRT_LIBPATH})
 # set_ifndef(TRT_OUT_DIR $ENV{TRT_OSSPATH}/build/out)
-set(TRT_INC_DIR /root/autodl-tmp/TensorRT-10.0.1.6/include)
-set(TRT_LIB_DIR /root/autodl-tmp/TensorRT-10.0.1.6/lib)
-set(TRT_OUT_DIR /root/autodl-tmp/TensorRT-10.0.1.6/bin)
+# set(TRT_INC_DIR /root/autodl-tmp/TensorRT-10.0.1.6/include)
+# set(TRT_LIB_DIR /root/autodl-tmp/TensorRT-10.0.1.6/lib)
+# set(TRT_OUT_DIR /root/autodl-tmp/TensorRT-10.0.1.6/bin)
+
+set(TRT_INC_DIR /home/wzp/TensorRT-10.0.1.6/include)
+set(TRT_LIB_DIR /home/wzp/TensorRT-10.0.1.6/lib)
+set(TRT_OUT_DIR /home/wzp/TensorRT-10.0.1.6/bin)
 
 include_directories(
     infer_c

@@ -1,5 +1,3 @@
-#include "logging.h"
-
 #include "common.h"
 #include "logging.h"
 #include <NvInfer.h>
@@ -10,6 +8,8 @@
 #include <numeric>
 #include <string.h>
 #include <vector>
+#include <iostream>
+// #include "t5_logger.h"
 
 using namespace nvinfer1;
 
@@ -35,8 +35,8 @@ public:
     void run(int profIdx, int batchSize, const void *inputIds, const void *segmentIds, const void *inputMask,
              int warmUps, int iterations);
     void reportTiming(int batchIndex, int batchSize);
-    void RunT5(const void *inputIds );
-    void InferT5(const void *const *inputBuffers);
+    // void RunT5(const void *inputIds );
+    void InferT5(std::vector<int> inputs);
 
 private:
     static const int kBERT_INPUT_NUM = 1; // input_ids
@@ -48,8 +48,8 @@ private:
     bool mEnableVariableLen = true; //是否变长
     std::vector<int> mCuSeqlens;
     cudaStream_t mStream{NULL};
-    std::vector<void *> mDeviceBuffers;
-    std::vector<float> mHostOutput;
+    std::vector<void *> mDeviceBuffers; //输入输出的GPU缓存
+    std::vector<float> mHostOutput; //CPU输出存放
     std::vector<size_t> mInputSizes;
     size_t mOutputSize = 1;
     std::vector<int> mOutputDims;

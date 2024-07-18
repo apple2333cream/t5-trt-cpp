@@ -1,20 +1,3 @@
-/*
- * SPDX-FileCopyrightText: Copyright (c) 1993-2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
- * SPDX-License-Identifier: Apache-2.0
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #ifndef INFER_C_LOGGING_H
 #define INFER_C_LOGGING_H
 
@@ -25,6 +8,13 @@
 
 using namespace nvinfer1;
 using Severity = nvinfer1::ILogger::Severity;
+static std::string  getCurFileName(const std::string filepath)
+{
+    // std::string filepath = __FILE__;
+    size_t lastSlashPos = filepath.find_last_of("\\/");
+    std::string fileName = filepath.substr(lastSlashPos + 1);
+    return fileName;
+}
 
 class Logger : public ILogger
 {
@@ -45,9 +35,8 @@ public:
         return *this;
     }
 
-    Logger& report(Severity severity, const char* msg)
+    Logger& report(Severity severity, const char* file, int line, const char* msg)
     {
-
         if (severity <= mReportableSeverity)
         {
             const std::map<Severity, std::string> prefixMapping = {{Severity::kINTERNAL_ERROR, "[DemoT5][F] "},
@@ -58,7 +47,7 @@ public:
 
             mOstream = &std::cout;
 
-            *this << prefixMapping.at(severity) << msg;
+            *this << prefixMapping.at(severity) << "(" << getCurFileName(file) << ":" << line << ") " << msg;
 
             return *this;
         }
@@ -69,7 +58,7 @@ public:
 private:
     void log(Severity severity, const char* msg) noexcept override
     {
-        report(severity, msg) << "\n";
+        report(severity, __FILE__, __LINE__, msg) << "\n";
     }
 
     std::ostream* mOstream;
@@ -77,10 +66,10 @@ private:
 };
 
 extern Logger gLogger;
-#define gLogFatal gLogger.report(Severity::kINTERNAL_ERROR, "")
-#define gLogError gLogger.report(Severity::kERROR, "")
-#define gLogWarning gLogger.report(Severity::kWARNING, "")
-#define gLogInfo gLogger.report(Severity::kINFO, "")
-#define gLogVerbose gLogger.report(Severity::kVERBOSE, "")
+#define gLogFatal gLogger.report(Severity::kINTERNAL_ERROR, __FILE__, __LINE__, "")
+#define gLogError gLogger.report(Severity::kERROR, __FILE__, __LINE__, "")
+#define gLogWarning gLogger.report(Severity::kWARNING, __FILE__, __LINE__, "")
+#define gLogInfo gLogger.report(Severity::kINFO, __FILE__, __LINE__, "")
+#define gLogVerbose gLogger.report(Severity::kVERBOSE, __FILE__, __LINE__, "")
 
 #endif // INFER_C_LOGGING_H
