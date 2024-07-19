@@ -102,20 +102,20 @@ int T5Inference::Init(
 
     gpuErrChk(cudaStreamCreate(&mStream));
 
-    allocateBindings(maxBatchSize);
+    allocateBindings(maxBatchSize); //?
     return 0;
 }
 
 void T5Inference::allocateBindings(const int maxBatchSize)
 {
     const size_t allocationSize = mSeqLength * maxBatchSize * sizeof(int32_t);
+    // const size_t allocationSize = mSeqLength * maxBatchSize * sizeof(int64_t);
 
     // Static sizes with implicit batch size: allocation sizes known to engine
     if (mEnableVariableLen)
     {
-        const size_t allocationSizes[] = {allocationSize, allocationSize,
-                                          sizeof(int32_t) * (maxBatchSize + 1),
-                                          sizeof(int32_t) * (mSeqLength)};
+ 
+        const size_t allocationSizes[] = {allocationSize};
         for (int i = 0; i < sizeof(allocationSizes) / sizeof(allocationSizes[0]); i++)
         {
             void *devBuf;
@@ -125,41 +125,50 @@ void T5Inference::allocateBindings(const int maxBatchSize)
             mInputSizes.emplace_back(allocationSizes[i]);
         }
     }
-    else
-    {
-        for (int i = 0; i < kBERT_INPUT_NUM; i++)
-        {
-            void *devBuf;
-            gpuErrChk(cudaMalloc(&devBuf, allocationSize));
-            gpuErrChk(cudaMemset(devBuf, 0, allocationSize));
-            mDeviceBuffers.emplace_back(devBuf);
-            mInputSizes.emplace_back(allocationSize);
-        }
-    }
+   
 
-    const size_t numOutputItems = maxBatchSize * mSeqLength * 2;
+    const size_t numOutputItems = maxBatchSize * mSeqLength * 768;
     mOutputSize = numOutputItems * sizeof(float);
     if (mEnableVariableLen)
     {
-        mOutputDims = {maxBatchSize * mSeqLength * 2};
-    }
-    else
-    {
-        mOutputDims = {maxBatchSize, mSeqLength, 2, 1, 1};
-    }
+        mOutputDims = {maxBatchSize,mSeqLength,768};
+    }   
     void *devBuf;
     gpuErrChk(cudaMalloc(&devBuf, mOutputSize));
     gpuErrChk(cudaMemset(devBuf, 0, mOutputSize));
     mDeviceBuffers.emplace_back(devBuf);
     mHostOutput.resize(numOutputItems);
+
+
+    void * tt;
+    std::vector<float> a {1, 2};
+    std::cout << "len a: " << a.size() <<std::endl;
+    for(auto i : a)
+        std::cout << i << std::endl;
+    std::vector<float> b;
+    const size_t len = a.size() * sizeof(float);
+
+    cudaMalloc(&tt, len);
+    cudaMemset(tt, 0, len);
+    cudaMemcpy(tt, a.data(), len, cudaMemcpyHostToDevice);
+    cudaMemcpy(b.data(), tt, len, cudaMemcpyDeviceToHost);
+
+    std::cout << "len b: " << b.size() <<std::endl;
+    for(auto i : b)
+        std::cout << i << std::endl;
+
 }
 
-void T5Inference::prepare(int profIdx, int batchSize)
+// void T5Inference::InferT5(const void *const *inputBuffers)
+void T5Inference::InferT5(std::vector<int> inputs)
 {
-    int numProfiles = mEngine->getNbOptimizationProfiles();
+     std::vector<int32_t> vec = {13959, 1566, 12, 2379, 10, 27, 47, 3, 9, 7584, 13, 3, 9, 939, 13, 10649, 5, 1};
+    int input_size=vec.size()*sizeof(int32_t);
+    // prepare(1, 1);
+     int numProfiles = mEngine->getNbOptimizationProfiles();
     gLogInfo << "numProfiles:" << numProfiles << "\n";
-    profIdx = std::min(numProfiles - 1, profIdx);
-
+    int profIdx =0;
+    int batchSize=1;
     mContext->setOptimizationProfileAsync(profIdx, mStream);
     // nvinfer1::Dims engineDims = mEngine->getInput(0).desc.dims; // 获取输入张量的原始维度
 
@@ -178,233 +187,89 @@ void T5Inference::prepare(int profIdx, int batchSize)
             for (int m = 0; m < nbDims; m++)
             {
                 gLogInfo << "dim:" << m << ", size:" << inputdims.d[m] << "\n";
-            }
-
-            // int bindingIndex = mEngine->getBindingIndex(tensorName);
-            // if (bindingIndex != -1) {
-            //     nvinfer1::Dims engineDims = mEngine->getBindingDimensions(bindingIndex);
-            //     // 现在可以使用 engineDims
-            // } else {
-            //     // 处理错误，输入张量名未找到
-            // }
-            mContext->setInputShape(tensorName, inputdims);
-            // mContext->setInputShape(tensorName, Dims2(batchSize, mSeqLength));
+            }  
+            // inputdims.d[1]=mSeqLength;
+            // mContext->setInputShape(tensorName, inputdims);
+            // Dims2
+             mContext->setInputShape(tensorName, Dims2(batchSize,vec.size()));
         }
     }
-    else
-    {
-        for (int i = 0; i < kBERT_INPUT_NUM; i++)
-        {
-            auto const tensorName = mEngine->getIOTensorName(i);
-            mContext->setInputShape(tensorName, Dims2(batchSize, mSeqLength));
-        }
-    }
-
-    if (!mContext->allInputDimensionsSpecified())
-    {
-        gLogError << "Not all input dimensions are specified for the exeuction context\n";
-        exit(-1);
-    }
-
-    if (mEnableGraph)
-    {
-        for (int32_t i = 0; i < mEngine->getNbIOTensors(); i++)
-        {
-         
-            auto const &name = mEngine->getIOTensorName(i);
-            gLogInfo << "i:" << i << ",outtensorName:" << name << "\n";
-            mContext->setTensorAddress(name, mDeviceBuffers[i]);
-        }
-
-        cudaGraph_t graph;
-        cudaGraphExec_t exec;
-        // warm up and let mContext do cublas initialization
-        bool status = mContext->enqueueV3(mStream);
-        if (!status)
-        {
-            gLogError << "Enqueue failed\n";
-            exit(-1);
-        }
-        gLogVerbose << "Capturing graph\n";
-
-        gpuErrChk(cudaStreamBeginCapture(mStream, cudaStreamCaptureModeRelaxed));
-        status = mContext->enqueueV3(mStream);
-        if (!status)
-        {
-            gLogError << "Enqueue failed\n";
-            exit(-1);
-        }
-
-        gpuErrChk(cudaStreamEndCapture(mStream, &graph));
-        gpuErrChk(cudaStreamSynchronize(mStream));
-
-        gpuErrChk(cudaGraphInstantiate(&exec, graph, NULL, NULL, 0));
-        mExecGraph = exec;
-    }
-    mCuSeqlens.resize(batchSize + 1);
-    std::generate(mCuSeqlens.begin(), mCuSeqlens.end(), [pos = -mSeqLength, this]() mutable
-                  { pos += mSeqLength; return pos; });
-}
-
-void T5Inference::run(const void *const *inputBuffers, int warmUps, int iterations)
-{
-    for (int i = 0; i < kBERT_INPUT_NUM; i++)
-    {
-        gpuErrChk(
-            cudaMemcpyAsync(mDeviceBuffers[i], inputBuffers[i], mInputSizes[i], cudaMemcpyHostToDevice, mStream));
-    }
-
-    gLogInfo << "Warming up " << warmUps << " iterations ...\n";
-    for (int it = 0; it < warmUps; it++)
-    {
-        if (mEnableGraph)
-        {
-            gpuErrChk(cudaGraphLaunch(mExecGraph, mStream));
-        }
-        else
-        {
-            bool status = mContext->enqueueV3(mStream);
-            if (!status)
-            {
-                gLogError << "Enqueue failed\n";
-                exit(-1);
-            }
-        }
-    }
-    gpuErrChk(cudaStreamSynchronize(mStream));
-
+   
+    // gpuErrChk(
+    //         cudaMemcpyAsync(mDeviceBuffers[0], vec.data(), mInputSizes[0], cudaMemcpyHostToDevice, mStream));
+  
+    cudaMemcpy(mDeviceBuffers[0], vec.data(), input_size, cudaMemcpyHostToDevice);
     cudaEvent_t start, stop;
     gpuErrChk(cudaEventCreate(&start));
     gpuErrChk(cudaEventCreate(&stop));
 
-    std::vector<float> times;
-    gLogInfo << "Running " << iterations << " iterations ...\n";
-    for (int it = 0; it < iterations; it++)
+    //查看输入值
+    std::vector<int32_t> input_vec;
+    gLogInfo << "mInputSizes[0]: "<<input_size<< "...\n";
+    // cudaMemcpyAsync(input_vec.data(), mDeviceBuffers[0], mInputSizes[0], cudaMemcpyDeviceToHost, mStream);
+    cudaMemcpy(input_vec.data(), mDeviceBuffers[0], input_size, cudaMemcpyDeviceToHost);
+    // copyToHost(input_vec.data(),mDeviceBuffers[0],mInputSizes[0]);
+     gLogInfo << "input_vec size: "<<input_vec.size()<< "...\n";
+    for (int i=0;i<input_vec.size();i++)
     {
-        gpuErrChk(cudaEventRecord(start, mStream));
-        if (mEnableGraph)
-        {
-            gpuErrChk(cudaGraphLaunch(mExecGraph, mStream));
-        }
-        else
-        {
-            bool status = mContext->enqueueV3(mStream);
-            if (!status)
-            {
-                gLogError << "Enqueue failed\n";
-                exit(-1);
-            }
-        }
-        gpuErrChk(cudaEventRecord(stop, mStream));
-        gpuErrChk(cudaStreamSynchronize(mStream));
-        float time;
-        gpuErrChk(cudaEventElapsedTime(&time, start, stop));
-        times.push_back(time);
+        std::cout<<"input i="<<i<<","<<input_vec[i]<<std::endl;
     }
-
-    gpuErrChk(cudaMemcpyAsync(
-        mHostOutput.data(), mDeviceBuffers[mEnableVariableLen ? kBERT_INPUT_NUM + 1 : kBERT_INPUT_NUM], mOutputSize, cudaMemcpyDeviceToHost, mStream));
-
-    gpuErrChk(cudaStreamSynchronize(mStream));
-
-    mTimes.push_back(times);
-}
-
-// void T5Inference::InferT5(const void *const *inputBuffers)
-void T5Inference::InferT5(std::vector<int> inputs)
-{
-    prepare(1, 1);
-    std::vector<int> vec = {13959, 1566, 12, 2379, 10, 27, 47, 3, 9, 7584, 13, 3, 9, 939, 13, 10649, 5, 1};
-    const void *inputIds = static_cast<const void *>(vec.data());
-    const std::vector<const void *> inputBuffers = {inputIds, mCuSeqlens.data()};
-    for (int i = 0; i < kBERT_INPUT_NUM; i++)
-    {
-        gpuErrChk(
-            cudaMemcpyAsync(mDeviceBuffers[i], inputBuffers[i], mInputSizes[i], cudaMemcpyHostToDevice, mStream));
-    }
-
-    bool status = mContext->enqueueV3(mStream);
-    if (!status)
-    {
-        gLogError << "Enqueue failed\n";
-        exit(-1);
-    }
-
-    gpuErrChk(cudaStreamSynchronize(mStream));
-
-    cudaEvent_t start, stop;
-    gpuErrChk(cudaEventCreate(&start));
-    gpuErrChk(cudaEventCreate(&stop));
-
+ 
     std::vector<float> times;
     int iterations = 1;
     gLogInfo << "Running " << iterations << " iterations ...\n";
-    for (int it = 0; it < iterations; it++)
+      // 获取输入和输出绑定的数量
+
+    // 执行模型推理
+    gLogInfo << "mDeviceBuffers.size() " << mDeviceBuffers.size() << "...\n";
+    bool status = mContext->executeV2(mDeviceBuffers.data()); //executeV2同步，executeV3 异步
+    gLogInfo <<"infer status:"<<status<<"\n";
+    assert(status && "Inference failed");
+
+    // cudaMemcpy(  mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost);
+    // gpuErrChk(cudaMemcpyAsync(
+    //     mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost, mStream));
+
+    // gpuErrChk(cudaStreamSynchronize(mStream));
+    for (int i=0;i<10;i++)
     {
-        gpuErrChk(cudaEventRecord(start, mStream));
-        if (mEnableGraph)
-        {
-            gpuErrChk(cudaGraphLaunch(mExecGraph, mStream));
-        }
-        else
-        {
-            bool status = mContext->enqueueV3(mStream);
-            if (!status)
-            {
-                gLogError << "Enqueue failed\n";
-                exit(-1);
-            }
-        }
-        gpuErrChk(cudaEventRecord(stop, mStream));
-        gpuErrChk(cudaStreamSynchronize(mStream));
-        float time;
-        gpuErrChk(cudaEventElapsedTime(&time, start, stop));
-        times.push_back(time);
+        std::cout<<"i="<<i<<","<<mHostOutput[i]<<std::endl;
     }
-
-    gpuErrChk(cudaMemcpyAsync(
-        mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost, mStream));
-
-    gpuErrChk(cudaStreamSynchronize(mStream));
 
     mTimes.push_back(times);
+
+ 
+    // for (int it = 0; it < iterations; it++)
+    // {
+    //     gpuErrChk(cudaEventRecord(start, mStream));
+    //     if (mEnableGraph)
+    //     {
+    //         gpuErrChk(cudaGraphLaunch(mExecGraph, mStream));
+    //     }
+    //     else
+    //     {
+    //         bool status = mContext->enqueueV3(mStream);
+    //         if (!status)
+    //         {
+    //             gLogError << "Enqueue failed\n";
+    //             exit(-1);
+    //         }
+    //     }
+    //     gpuErrChk(cudaEventRecord(stop, mStream));
+    //     gpuErrChk(cudaStreamSynchronize(mStream));
+    //     float time;
+    //     gpuErrChk(cudaEventElapsedTime(&time, start, stop));
+    //     times.push_back(time);
+    // }
+
+    // gpuErrChk(cudaMemcpyAsync(
+    //     mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost, mStream));
+
+    // gpuErrChk(cudaStreamSynchronize(mStream));
+
+    // mTimes.push_back(times);
 }
 
-// void T5Inference::RunT5(const void *inputIds )
-// {
-//     if (mEnableVariableLen)
-//     {
-//         const std::vector<const void *> inputBuffers = {inputIds ,mCuSeqlens.data()};
-//         InferT5(inputBuffers.data());
-//     }
-//     else
-//     {
-//         const std::vector<const void *> inputBuffers = {inputIds};
-//         InferT5(inputBuffers.data());
-//     }
-// }
-
-void T5Inference::run(const void *inputIds, const void *segmentIds, const void *inputMask, int warmUps, int iterations)
-{
-    if (mEnableVariableLen)
-    {
-        const std::vector<const void *> inputBuffers = {inputIds, segmentIds, mCuSeqlens.data()};
-        run(inputBuffers.data(), warmUps, iterations);
-    }
-    else
-    {
-        const std::vector<const void *> inputBuffers = {inputIds, segmentIds, inputMask};
-        run(inputBuffers.data(), warmUps, iterations);
-    }
-}
-
-void T5Inference::run(int profIdx, int batchSize, const void *inputIds, const void *segmentIds, const void *inputMask,
-                      int warmUps, int iterations)
-{
-
-    prepare(profIdx, batchSize);
-    run(inputIds, segmentIds, inputMask, warmUps, iterations);
-}
 
 void T5Inference::reportTiming(int batchIndex, int batchSize)
 {
