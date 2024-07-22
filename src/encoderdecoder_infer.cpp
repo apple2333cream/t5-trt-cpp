@@ -100,7 +100,7 @@ int T5Inference::Init(
         return -1;
     }
 
-    gpuErrChk(cudaStreamCreate(&mStream));
+    // gpuErrChk(cudaStreamCreate(&mStream));
 
     allocateBindings(maxBatchSize); //?
     return 0;
@@ -108,166 +108,188 @@ int T5Inference::Init(
 
 void T5Inference::allocateBindings(const int maxBatchSize)
 {
-    const size_t allocationSize = mSeqLength * maxBatchSize * sizeof(int32_t);
+    // const size_t allocationSize = mSeqLength * maxBatchSize * sizeof(int32_t);
     // const size_t allocationSize = mSeqLength * maxBatchSize * sizeof(int64_t);
+    const size_t numInputItems =  mSeqLength * maxBatchSize  ;
+    size_t mInputSize = numInputItems * sizeof(int64_t);
 
     // Static sizes with implicit batch size: allocation sizes known to engine
-    if (mEnableVariableLen)
-    {
- 
-        const size_t allocationSizes[] = {allocationSize};
-        for (int i = 0; i < sizeof(allocationSizes) / sizeof(allocationSizes[0]); i++)
-        {
+    if (mEnableVariableLen)//输入
+    { 
+        // const size_t allocationSizes[] = {allocationSize};
+      
             void *devBuf;
-            gpuErrChk(cudaMalloc(&devBuf, allocationSizes[i]));
-            gpuErrChk(cudaMemset(devBuf, 0, allocationSizes[i]));
+            gpuErrChk(cudaMalloc(&devBuf, mInputSize));
+            gpuErrChk(cudaMemset(devBuf, 0, mInputSize));
             mDeviceBuffers.emplace_back(devBuf);
-            mInputSizes.emplace_back(allocationSizes[i]);
-        }
+            mInputSizes.emplace_back(mInputSize);
+        
     }
-   
-
     const size_t numOutputItems = maxBatchSize * mSeqLength * 768;
     mOutputSize = numOutputItems * sizeof(float);
+    gLogInfo << "numOutputItems.size():"<<numOutputItems<<",mOutputSize:"<<mOutputSize<<"\n";
     if (mEnableVariableLen)
     {
         mOutputDims = {maxBatchSize,mSeqLength,768};
     }   
     void *devBuf;
     gpuErrChk(cudaMalloc(&devBuf, mOutputSize));
-    gpuErrChk(cudaMemset(devBuf, 0, mOutputSize));
+    gpuErrChk(cudaMemset(devBuf, 1, mOutputSize));
     mDeviceBuffers.emplace_back(devBuf);
-    mHostOutput.resize(numOutputItems);
-
-
-    void * tt;
-    std::vector<float> a {1, 2};
-    std::cout << "len a: " << a.size() <<std::endl;
-    for(auto i : a)
-        std::cout << i << std::endl;
-    std::vector<float> b;
-    const size_t len = a.size() * sizeof(float);
-
-    cudaMalloc(&tt, len);
-    cudaMemset(tt, 0, len);
-    cudaMemcpy(tt, a.data(), len, cudaMemcpyHostToDevice);
-    cudaMemcpy(b.data(), tt, len, cudaMemcpyDeviceToHost);
-
-    std::cout << "len b: " << b.size() <<std::endl;
-    for(auto i : b)
-        std::cout << i << std::endl;
+    mHostOutput.resize(numOutputItems);   
 
 }
 
-// void T5Inference::InferT5(const void *const *inputBuffers)
-void T5Inference::InferT5(std::vector<int> inputs)
+void T5Inference::InferT5(std::vector<int> input_ids)
 {
-     std::vector<int32_t> vec = {13959, 1566, 12, 2379, 10, 27, 47, 3, 9, 7584, 13, 3, 9, 939, 13, 10649, 5, 1};
-    int input_size=vec.size()*sizeof(int32_t);
-    // prepare(1, 1);
-     int numProfiles = mEngine->getNbOptimizationProfiles();
-    gLogInfo << "numProfiles:" << numProfiles << "\n";
-    int profIdx =0;
-    int batchSize=1;
-    mContext->setOptimizationProfileAsync(profIdx, mStream);
-    // nvinfer1::Dims engineDims = mEngine->getInput(0).desc.dims; // 获取输入张量的原始维度
+    std::vector<int64_t> input_ids = {13959, 1566, 12, 2379, 10, 27, 47, 3, 9, 7584, 13, 3, 9, 939, 13, 10649, 5, 1};
+    int input_size=input_ids.size()*sizeof(int64_t);
+    gLogInfo << "input_ids.size():"<<input_ids.size()<<",input_size:"<<input_size<<"\n";
+    int batchSize=1; 
 
     if (mEnableVariableLen)
     {
         const int allocationSizes[] = {mSeqLength * batchSize}; // input_ids
-        for (int i = 0; i < kBERT_INPUT_NUM; i++)
+        for (int i = 0; i < 1; i++)
         {
             auto const tensorName = mEngine->getIOTensorName(i);
             gLogInfo << "i:" << i << ",inputtensorName:" << tensorName << "\n";
             Dims inputdims = mEngine->getTensorShape(tensorName);
-            int32_t nbDims = inputdims.nbDims;
-            //! The extent of each dimension.
-            int64_t d[8];
-            gLogInfo << "nbDims:" << nbDims << "\n";
+            int32_t nbDims = inputdims.nbDims;     
+            gLogInfo << "in nbDims:" << nbDims << "\n";
             for (int m = 0; m < nbDims; m++)
             {
-                gLogInfo << "dim:" << m << ", size:" << inputdims.d[m] << "\n";
+                gLogInfo << "in dim:" << m << ", size:" << inputdims.d[m] << "\n";
             }  
             // inputdims.d[1]=mSeqLength;
             // mContext->setInputShape(tensorName, inputdims);
             // Dims2
-             mContext->setInputShape(tensorName, Dims2(batchSize,vec.size()));
+             mContext->setInputShape(tensorName, Dims2(batchSize,input_ids.size()));
         }
     }
-   
-    // gpuErrChk(
-    //         cudaMemcpyAsync(mDeviceBuffers[0], vec.data(), mInputSizes[0], cudaMemcpyHostToDevice, mStream));
-  
-    cudaMemcpy(mDeviceBuffers[0], vec.data(), input_size, cudaMemcpyHostToDevice);
+    //输出张量形状也要指定！！！
+           Dims outputdims = mEngine->getTensorShape("hidden_states");
+           int32_t nbDims = outputdims.nbDims;
+            //! The extent of each dimension.
+            gLogInfo << "out nbDims:" << nbDims << "\n";
+            for (int m = 0; m < nbDims; m++)
+            {
+                gLogInfo << "out dim:" << m << ", size:" << outputdims.d[m] << "\n";
+            }  
+
+    cudaMemcpy(mDeviceBuffers[0], input_ids.data(), input_size, cudaMemcpyHostToDevice);
     cudaEvent_t start, stop;
     gpuErrChk(cudaEventCreate(&start));
     gpuErrChk(cudaEventCreate(&stop));
 
     //查看输入值
-    std::vector<int32_t> input_vec;
+    std::vector<int64_t> input_vec(input_ids.size());
     gLogInfo << "mInputSizes[0]: "<<input_size<< "...\n";
-    // cudaMemcpyAsync(input_vec.data(), mDeviceBuffers[0], mInputSizes[0], cudaMemcpyDeviceToHost, mStream);
     cudaMemcpy(input_vec.data(), mDeviceBuffers[0], input_size, cudaMemcpyDeviceToHost);
-    // copyToHost(input_vec.data(),mDeviceBuffers[0],mInputSizes[0]);
      gLogInfo << "input_vec size: "<<input_vec.size()<< "...\n";
     for (int i=0;i<input_vec.size();i++)
     {
         std::cout<<"input i="<<i<<","<<input_vec[i]<<std::endl;
-    }
- 
+    } 
     std::vector<float> times;
-    int iterations = 1;
-    gLogInfo << "Running " << iterations << " iterations ...\n";
-      // 获取输入和输出绑定的数量
-
     // 执行模型推理
-    gLogInfo << "mDeviceBuffers.size() " << mDeviceBuffers.size() << "...\n";
-    bool status = mContext->executeV2(mDeviceBuffers.data()); //executeV2同步，executeV3 异步
+     // 准备绑定
+    void* bindings[2];
+    bindings[0] = mDeviceBuffers[0];
+    bindings[1] = mDeviceBuffers[1];
+    gLogInfo << "mDeviceBuffers.size()=" << mDeviceBuffers.size() << "...\n";
+    bool status = mContext->executeV2(bindings); //executeV2同步，executeV3 异步
     gLogInfo <<"infer status:"<<status<<"\n";
     assert(status && "Inference failed");
-
-    // cudaMemcpy(  mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost);
-    // gpuErrChk(cudaMemcpyAsync(
-    //     mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost, mStream));
-
-    // gpuErrChk(cudaStreamSynchronize(mStream));
+    std::vector<float> output_vec(input_ids.size()*768);
+    int output_size=output_vec.size()*sizeof(float);
+    gLogInfo <<"output_vec.size="<<output_vec.size()<< ",output_size: "<<output_size<< "...\n";
+    cudaMemcpy(output_vec.data(), bindings[1], output_size, cudaMemcpyDeviceToHost);
     for (int i=0;i<10;i++)
     {
-        std::cout<<"i="<<i<<","<<mHostOutput[i]<<std::endl;
+        // std::cout<<"output i="<<i<<","<<mHostOutput[i]<<std::endl;
+        std::cout<<"output i="<<i<<","<<output_vec[i]<<std::endl;
     }
 
     mTimes.push_back(times);
 
- 
-    // for (int it = 0; it < iterations; it++)
-    // {
-    //     gpuErrChk(cudaEventRecord(start, mStream));
-    //     if (mEnableGraph)
-    //     {
-    //         gpuErrChk(cudaGraphLaunch(mExecGraph, mStream));
-    //     }
-    //     else
-    //     {
-    //         bool status = mContext->enqueueV3(mStream);
-    //         if (!status)
-    //         {
-    //             gLogError << "Enqueue failed\n";
-    //             exit(-1);
-    //         }
-    //     }
-    //     gpuErrChk(cudaEventRecord(stop, mStream));
-    //     gpuErrChk(cudaStreamSynchronize(mStream));
-    //     float time;
-    //     gpuErrChk(cudaEventElapsedTime(&time, start, stop));
-    //     times.push_back(time);
-    // }
+}
 
-    // gpuErrChk(cudaMemcpyAsync(
-    //     mHostOutput.data(), mDeviceBuffers[1], mOutputSize, cudaMemcpyDeviceToHost, mStream));
 
-    // gpuErrChk(cudaStreamSynchronize(mStream));
 
-    // mTimes.push_back(times);
+void T5Inference::InferEncoder(std::vector<int> input_ids)
+{
+    std::vector<int64_t> input_ids = {13959, 1566, 12, 2379, 10, 27, 47, 3, 9, 7584, 13, 3, 9, 939, 13, 10649, 5, 1};
+    int input_size=input_ids.size()*sizeof(int64_t);
+    gLogInfo << "input_ids.size():"<<input_ids.size()<<",input_size:"<<input_size<<"\n";
+    int batchSize=1; 
+
+    if (mEnableVariableLen)
+    {
+        const int allocationSizes[] = {mSeqLength * batchSize}; // input_ids
+        for (int i = 0; i < 1; i++)
+        {
+            auto const tensorName = mEngine->getIOTensorName(i);
+            gLogInfo << "i:" << i << ",inputtensorName:" << tensorName << "\n";
+            Dims inputdims = mEngine->getTensorShape(tensorName);
+            int32_t nbDims = inputdims.nbDims;     
+            gLogInfo << "in nbDims:" << nbDims << "\n";
+            for (int m = 0; m < nbDims; m++)
+            {
+                gLogInfo << "in dim:" << m << ", size:" << inputdims.d[m] << "\n";
+            }  
+            // inputdims.d[1]=mSeqLength;
+            // mContext->setInputShape(tensorName, inputdims);
+            // Dims2
+             mContext->setInputShape(tensorName, Dims2(batchSize,input_ids.size()));
+        }
+    }
+    //输出张量形状也要指定！！！
+           Dims outputdims = mEngine->getTensorShape("hidden_states");
+           int32_t nbDims = outputdims.nbDims;
+            //! The extent of each dimension.
+            gLogInfo << "out nbDims:" << nbDims << "\n";
+            for (int m = 0; m < nbDims; m++)
+            {
+                gLogInfo << "out dim:" << m << ", size:" << outputdims.d[m] << "\n";
+            }  
+
+    cudaMemcpy(mDeviceBuffers[0], input_ids.data(), input_size, cudaMemcpyHostToDevice);
+    cudaEvent_t start, stop;
+    gpuErrChk(cudaEventCreate(&start));
+    gpuErrChk(cudaEventCreate(&stop));
+
+    //查看输入值
+    std::vector<int64_t> input_vec(input_ids.size());
+    gLogInfo << "mInputSizes[0]: "<<input_size<< "...\n";
+    cudaMemcpy(input_vec.data(), mDeviceBuffers[0], input_size, cudaMemcpyDeviceToHost);
+     gLogInfo << "input_vec size: "<<input_vec.size()<< "...\n";
+    for (int i=0;i<input_vec.size();i++)
+    {
+        std::cout<<"input i="<<i<<","<<input_vec[i]<<std::endl;
+    } 
+    std::vector<float> times;
+    // 执行模型推理
+     // 准备绑定
+    void* bindings[2];
+    bindings[0] = mDeviceBuffers[0];
+    bindings[1] = mDeviceBuffers[1];
+    gLogInfo << "mDeviceBuffers.size()=" << mDeviceBuffers.size() << "...\n";
+    bool status = mContext->executeV2(bindings); //executeV2同步，executeV3 异步
+    gLogInfo <<"infer status:"<<status<<"\n";
+    assert(status && "Inference failed");
+    std::vector<float> output_vec(input_ids.size()*768);
+    int output_size=output_vec.size()*sizeof(float);
+    gLogInfo <<"output_vec.size="<<output_vec.size()<< ",output_size: "<<output_size<< "...\n";
+    cudaMemcpy(output_vec.data(), bindings[1], output_size, cudaMemcpyDeviceToHost);
+    for (int i=0;i<10;i++)
+    {
+        // std::cout<<"output i="<<i<<","<<mHostOutput[i]<<std::endl;
+        std::cout<<"output i="<<i<<","<<output_vec[i]<<std::endl;
+    }
+
+    mTimes.push_back(times);
+
 }
 
 

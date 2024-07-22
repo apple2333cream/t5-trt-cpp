@@ -30,3 +30,24 @@ trtexec \
     --maxShapes=input_ids:1x100 \
     --fp16 \
     --verbose >convert_encoder_log.txt
+
+
+trtexec \
+    --onnx=/home/wzp/t5-onnx/onnx/t5-base-encoder-12.onnx \
+    --saveEngine=/home/wzp/t5-onnx/t5-base-encoder-12.engine \
+    --minShapes=input_ids:1x1 \
+    --optShapes=input_ids:1x20 \
+    --maxShapes=input_ids:1x100 \
+    --verbose >convert_2encoder_log.txt
+
+
+
+
+trtexec \
+    --onnx=/home/wzp/t5-onnx/model.onnx \
+    --saveEngine=/home/wzp/t5-onnx/cam.engine \
+    --minShapes=input:1x1x80 \
+    --optShapes=input:1x20x80 \
+    --maxShapes=input:1x100x80 \
+    --fp16 \
+    --verbose >convert_cam_log.txt

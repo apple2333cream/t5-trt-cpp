@@ -1,0 +1,1023 @@
+&&&& RUNNING TensorRT.trtexec [TensorRT v100001] # trtexec --onnx=/home/wzp/t5-onnx/bert.onnx --saveEngine=/home/wzp/t5-onnx/bert.engine --minShapes=input_ids:1x1,attention_mask:1x1 --optShapes=input_ids:1x20,attention_mask:1x20 --maxShapes=input_ids:1x100,attention_mask:1x20 --fp16 --verbose
+[07/22/2024-02:32:50] [I] === Model Options ===
+[07/22/2024-02:32:50] [I] Format: ONNX
+[07/22/2024-02:32:50] [I] Model: /home/wzp/t5-onnx/bert.onnx
+[07/22/2024-02:32:50] [I] Output:
+[07/22/2024-02:32:50] [I] === Build Options ===
+[07/22/2024-02:32:50] [I] Memory Pools: workspace: default, dlaSRAM: default, dlaLocalDRAM: default, dlaGlobalDRAM: default, tacticSharedMem: default
+[07/22/2024-02:32:50] [I] avgTiming: 8
+[07/22/2024-02:32:50] [I] Precision: FP32+FP16
+[07/22/2024-02:32:50] [I] LayerPrecisions: 
+[07/22/2024-02:32:50] [I] Layer Device Types: 
+[07/22/2024-02:32:50] [I] Calibration: 
+[07/22/2024-02:32:50] [I] Refit: Disabled
+[07/22/2024-02:32:50] [I] Strip weights: Disabled
+[07/22/2024-02:32:50] [I] Version Compatible: Disabled
+[07/22/2024-02:32:50] [I] ONNX Plugin InstanceNorm: Disabled
+[07/22/2024-02:32:50] [I] TensorRT runtime: full
+[07/22/2024-02:32:50] [I] Lean DLL Path: 
+[07/22/2024-02:32:50] [I] Tempfile Controls: { in_memory: allow, temporary: allow }
+[07/22/2024-02:32:50] [I] Exclude Lean Runtime: Disabled
+[07/22/2024-02:32:50] [I] Sparsity: Disabled
+[07/22/2024-02:32:50] [I] Safe mode: Disabled
+[07/22/2024-02:32:50] [I] Build DLA standalone loadable: Disabled
+[07/22/2024-02:32:50] [I] Allow GPU fallback for DLA: Disabled
+[07/22/2024-02:32:50] [I] DirectIO mode: Disabled
+[07/22/2024-02:32:50] [I] Restricted mode: Disabled
+[07/22/2024-02:32:50] [I] Skip inference: Disabled
+[07/22/2024-02:32:50] [I] Save engine: /home/wzp/t5-onnx/bert.engine
+[07/22/2024-02:32:50] [I] Load engine: 
+[07/22/2024-02:32:50] [I] Profiling verbosity: 0
+[07/22/2024-02:32:50] [I] Tactic sources: Using default tactic sources
+[07/22/2024-02:32:50] [I] timingCacheMode: local
+[07/22/2024-02:32:50] [I] timingCacheFile: 
+[07/22/2024-02:32:50] [I] Enable Compilation Cache: Enabled
+[07/22/2024-02:32:50] [I] errorOnTimingCacheMiss: Disabled
+[07/22/2024-02:32:50] [I] Preview Features: Use default preview flags.
+[07/22/2024-02:32:50] [I] MaxAuxStreams: -1
+[07/22/2024-02:32:50] [I] BuilderOptimizationLevel: -1
+[07/22/2024-02:32:50] [I] Calibration Profile Index: 0
+[07/22/2024-02:32:50] [I] Weight Streaming: Disabled
+[07/22/2024-02:32:50] [I] Debug Tensors: 
+[07/22/2024-02:32:50] [I] Input(s)s format: fp32:CHW
+[07/22/2024-02:32:50] [I] Output(s)s format: fp32:CHW
+[07/22/2024-02:32:50] [I] Input build shape (profile 0): input_ids=1x1+1x20+1x100
+[07/22/2024-02:32:50] [I] Input build shape (profile 0): attention_mask=1x1+1x20+1x20
+[07/22/2024-02:32:50] [I] Input calibration shapes: model
+[07/22/2024-02:32:50] [I] === System Options ===
+[07/22/2024-02:32:50] [I] Device: 0
+[07/22/2024-02:32:50] [I] DLACore: 
+[07/22/2024-02:32:50] [I] Plugins:
+[07/22/2024-02:32:50] [I] setPluginsToSerialize:
+[07/22/2024-02:32:50] [I] dynamicPlugins:
+[07/22/2024-02:32:50] [I] ignoreParsedPluginLibs: 0
+[07/22/2024-02:32:50] [I] 
+[07/22/2024-02:32:50] [I] === Inference Options ===
+[07/22/2024-02:32:50] [I] Batch: Explicit
+[07/22/2024-02:32:50] [I] Input inference shape : attention_mask=1x20
+[07/22/2024-02:32:50] [I] Input inference shape : input_ids=1x20
+[07/22/2024-02:32:50] [I] Iterations: 10
+[07/22/2024-02:32:50] [I] Duration: 3s (+ 200ms warm up)
+[07/22/2024-02:32:50] [I] Sleep time: 0ms
+[07/22/2024-02:32:50] [I] Idle time: 0ms
+[07/22/2024-02:32:50] [I] Inference Streams: 1
+[07/22/2024-02:32:50] [I] ExposeDMA: Disabled
+[07/22/2024-02:32:50] [I] Data transfers: Enabled
+[07/22/2024-02:32:50] [I] Spin-wait: Disabled
+[07/22/2024-02:32:50] [I] Multithreading: Disabled
+[07/22/2024-02:32:50] [I] CUDA Graph: Disabled
+[07/22/2024-02:32:50] [I] Separate profiling: Disabled
+[07/22/2024-02:32:50] [I] Time Deserialize: Disabled
+[07/22/2024-02:32:50] [I] Time Refit: Disabled
+[07/22/2024-02:32:50] [I] NVTX verbosity: 0
+[07/22/2024-02:32:50] [I] Persistent Cache Ratio: 0
+[07/22/2024-02:32:50] [I] Optimization Profile Index: 0
+[07/22/2024-02:32:50] [I] Weight Streaming Budget: Disabled
+[07/22/2024-02:32:50] [I] Inputs:
+[07/22/2024-02:32:50] [I] Debug Tensor Save Destinations:
+[07/22/2024-02:32:50] [I] === Reporting Options ===
+[07/22/2024-02:32:50] [I] Verbose: Enabled
+[07/22/2024-02:32:50] [I] Averages: 10 inferences
+[07/22/2024-02:32:50] [I] Percentiles: 90,95,99
+[07/22/2024-02:32:50] [I] Dump refittable layers:Disabled
+[07/22/2024-02:32:50] [I] Dump output: Disabled
+[07/22/2024-02:32:50] [I] Profile: Disabled
+[07/22/2024-02:32:50] [I] Export timing to JSON file: 
+[07/22/2024-02:32:50] [I] Export output to JSON file: 
+[07/22/2024-02:32:50] [I] Export profile to JSON file: 
+[07/22/2024-02:32:50] [I] 
+[07/22/2024-02:32:50] [I] === Device Information ===
+[07/22/2024-02:32:50] [I] Available Devices: 
+[07/22/2024-02:32:50] [I]   Device 0: "Tesla V100S-PCIE-32GB" UUID: GPU-e6c71893-36f0-ff33-811d-d2a3b171c057
+[07/22/2024-02:32:50] [I]   Device 1: "Tesla V100S-PCIE-32GB" UUID: GPU-35de555f-3001-61b2-972f-9e6a745dc00d
+[07/22/2024-02:32:50] [I]   Device 2: "Tesla V100S-PCIE-32GB" UUID: GPU-de818f10-fe0d-6262-9475-b6adc5c3fb1e
+[07/22/2024-02:32:50] [I]   Device 3: "Tesla V100S-PCIE-32GB" UUID: GPU-4672b2d0-4f7b-3442-27b0-14fc8732f465
+[07/22/2024-02:32:50] [I] Selected Device: Tesla V100S-PCIE-32GB
+[07/22/2024-02:32:50] [I] Selected Device ID: 0
+[07/22/2024-02:32:50] [I] Selected Device UUID: GPU-e6c71893-36f0-ff33-811d-d2a3b171c057
+[07/22/2024-02:32:50] [I] Compute Capability: 7.0
+[07/22/2024-02:32:50] [I] SMs: 80
+[07/22/2024-02:32:50] [I] Device Global Memory: 32501 MiB
+[07/22/2024-02:32:50] [I] Shared Memory per SM: 96 KiB
+[07/22/2024-02:32:50] [I] Memory Bus Width: 4096 bits (ECC enabled)
+[07/22/2024-02:32:50] [I] Application Compute Clock Rate: 1.597 GHz
+[07/22/2024-02:32:50] [I] Application Memory Clock Rate: 1.107 GHz
+[07/22/2024-02:32:50] [I] 
+[07/22/2024-02:32:50] [I] Note: The application clock rates do not reflect the actual clock rates that the GPU is currently running at.
+[07/22/2024-02:32:50] [I] 
+[07/22/2024-02:32:50] [I] TensorRT version: 10.0.1
+[07/22/2024-02:32:50] [I] Loading standard plugins
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::BatchedNMSDynamic_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::BatchedNMS_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::BatchTilePlugin_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Clip_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::CoordConvAC version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::CropAndResizeDynamic version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::CropAndResize version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::DecodeBbox3DPlugin version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::DetectionLayer_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::EfficientNMS_Explicit_TF_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::EfficientNMS_Implicit_TF_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::EfficientNMS_ONNX_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::EfficientNMS_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::FlattenConcat_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::GenerateDetection_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::GridAnchor_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::GridAnchorRect_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::InstanceNormalization_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::InstanceNormalization_TRT version 2
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::LReLU_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ModulatedDeformConv2d version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::MultilevelCropAndResize_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::MultilevelProposeROI_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::MultiscaleDeformableAttnPlugin_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::NMSDynamic_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::NMS_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Normalize_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::PillarScatterPlugin version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::PriorBox_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ProposalDynamic version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ProposalLayer_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Proposal version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::PyramidROIAlign_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Region_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Reorg_TRT version 2
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Reorg_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ResizeNearest_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ROIAlign_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::RPROI_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ScatterElements version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::ScatterND version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::SpecialSlice_TRT version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::Split version 1
+[07/22/2024-02:32:50] [V] [TRT] Registered plugin creator - ::VoxelGeneratorPlugin version 1
+[07/22/2024-02:32:50] [I] [TRT] [MemUsageChange] Init CUDA: CPU +1, GPU +0, now: CPU 17, GPU 12122 (MiB)
+[07/22/2024-02:32:51] [V] [TRT] Trying to load shared library libnvinfer_builder_resource.so.10.0.1
+[07/22/2024-02:32:51] [V] [TRT] Loaded shared library libnvinfer_builder_resource.so.10.0.1
+[07/22/2024-02:32:52] [I] [TRT] [MemUsageChange] Init builder kernel library: CPU +450, GPU +80, now: CPU 603, GPU 12202 (MiB)
+[07/22/2024-02:32:52] [V] [TRT] CUDA lazy loading is enabled.
+[07/22/2024-02:32:52] [I] Start parsing network model.
+[07/22/2024-02:32:53] [I] [TRT] ----------------------------------------------------------------
+[07/22/2024-02:32:53] [I] [TRT] Input filename:   /home/wzp/t5-onnx/bert.onnx
+[07/22/2024-02:32:53] [I] [TRT] ONNX IR version:  0.0.6
+[07/22/2024-02:32:53] [I] [TRT] Opset version:    11
+[07/22/2024-02:32:53] [I] [TRT] Producer name:    pytorch
+[07/22/2024-02:32:53] [I] [TRT] Producer version: 2.1.2
+[07/22/2024-02:32:53] [I] [TRT] Domain:           
+[07/22/2024-02:32:53] [I] [TRT] Model version:    0
+[07/22/2024-02:32:53] [I] [TRT] Doc string:       
+[07/22/2024-02:32:53] [I] [TRT] ----------------------------------------------------------------
+[07/22/2024-02:32:53] [V] [TRT] Adding network input: input_ids with dtype: int64, dimensions: (-1, -1)
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: input_ids for ONNX tensor: input_ids
+[07/22/2024-02:32:53] [V] [TRT] Adding network input: attention_mask with dtype: int64, dimensions: (-1, -1)
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: attention_mask for ONNX tensor: attention_mask
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: token_type_ids
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: classifier.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.embeddings.position_ids
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.embeddings.word_embeddings.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.embeddings.position_embeddings.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.embeddings.token_type_embeddings.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.embeddings.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.embeddings.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.0.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.1.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.2.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.3.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.4.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.5.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.6.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.7.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.8.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.9.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.10.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.attention.self.value.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.attention.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.attention.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.attention.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.intermediate.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.output.dense.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.output.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: bert.encoder.layer.11.output.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: classifier_domain.0.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: classifier_domain.0.bias
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: classifier_domain.1.weight
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_1_1_1_0_token_76
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1551
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1552
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1555
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1561
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1562
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1563
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1564
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1565
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1568
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1574
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1575
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1576
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1577
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1578
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1581
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1587
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1588
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1589
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1590
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1591
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1594
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1600
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1601
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1602
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1603
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1604
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1607
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1613
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1614
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1615
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1616
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1617
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1620
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1626
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1627
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1628
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1629
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1630
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1633
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1639
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1640
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1641
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1642
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1643
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1646
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1652
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1653
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1654
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1655
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1656
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1659
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1665
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1666
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1667
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1668
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1669
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1672
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1678
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1679
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1680
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1681
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1682
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1685
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1691
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1692
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1693
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1694
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1695
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1698
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1704
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1705
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: onnx::MatMul_1706
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_7_0_1_1_token_81
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_7_0_1_0_token_72
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_7_1_4_0_token_73
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_7_1_3_0_token_74
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_1_0_1_1_token_80
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_7_1_1_1_token_79
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_7_1_1_0_token_75
+[07/22/2024-02:32:53] [V] [TRT] Importing initializer: ortshared_1_0_1_0_token_78
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Shape_1 [Shape]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/Shape_1 [Shape]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: input_ids
+[07/22/2024-02:32:53] [V] [TRT] /bert/Shape_1 [Shape] inputs: [input_ids -> (-1, -1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/Shape_1 for ONNX node: /bert/Shape_1
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/Shape_1_output_0 for ONNX tensor: /bert/Shape_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Shape_1 [Shape] outputs: [/bert/Shape_1_output_0 -> (2)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Gather_1 [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/Gather_1 [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/Shape_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_0_1_0_token_72
+[07/22/2024-02:32:53] [V] [TRT] /bert/Gather_1 [Gather] inputs: [/bert/Shape_1_output_0 -> (2)[INT64]], [ortshared_7_0_1_0_token_72 -> ()[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ortshared_7_0_1_0_token_72 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Using Gather axis: 0
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/Gather_1 for ONNX node: /bert/Gather_1
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/Gather_1_output_0 for ONNX tensor: /bert/Gather_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Gather_1 [Gather] outputs: [/bert/Gather_1_output_0 -> ()[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/Unsqueeze [Unsqueeze]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/Unsqueeze [Unsqueeze]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/Gather_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Unsqueeze [Unsqueeze] inputs: [/bert/Gather_1_output_0 -> ()[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Original shape: (), unsqueezing to: (1,)
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/Unsqueeze for ONNX node: /bert/embeddings/Unsqueeze
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/Unsqueeze_output_0 for ONNX tensor: /bert/embeddings/Unsqueeze_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Unsqueeze [Unsqueeze] outputs: [/bert/embeddings/Unsqueeze_output_0 -> (1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/Slice [Slice]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/Slice [Slice]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.embeddings.position_ids
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_1_1_0_token_75
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/Unsqueeze_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_1_1_1_token_79
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_1_1_1_token_79
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Slice [Slice] inputs: [bert.embeddings.position_ids -> (1, 512)[INT64]], [ortshared_7_1_1_0_token_75 -> (1)[INT64]], [/bert/embeddings/Unsqueeze_output_0 -> (1)[INT64]], [ortshared_7_1_1_1_token_79 -> (1)[INT64]], [ortshared_7_1_1_1_token_79 -> (1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.embeddings.position_ids required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ortshared_7_1_1_0_token_75 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_castHelper required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_castHelper_0 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeConcat required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_2 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeGather required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_4 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeConcat_5 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeGather_6 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_8 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_10 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_11 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_12 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_13 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_15 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_16 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_17 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_19 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_20 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_22 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_23 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_24 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_25 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_27 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_28 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_29 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_30 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeTensorFromDims_32 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeElementWise_33 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeSlice required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/Slice for ONNX node: /bert/embeddings/Slice
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/Slice_output_0 for ONNX tensor: /bert/embeddings/Slice_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Slice [Slice] outputs: [/bert/embeddings/Slice_output_0 -> (1, -1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/position_embeddings/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/position_embeddings/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.embeddings.position_embeddings.weight
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/Slice_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/position_embeddings/Gather [Gather] inputs: [bert.embeddings.position_embeddings.weight -> (512, 768)[FLOAT]], [/bert/embeddings/Slice_output_0 -> (1, -1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.embeddings.position_embeddings.weight required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Using Gather axis: 0
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_castHelper_34 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/position_embeddings/Gather for ONNX node: /bert/embeddings/position_embeddings/Gather
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/position_embeddings/Gather_output_0 for ONNX tensor: /bert/embeddings/position_embeddings/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/position_embeddings/Gather [Gather] outputs: [/bert/embeddings/position_embeddings/Gather_output_0 -> (1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/Shape_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_0_1_1_token_81
+[07/22/2024-02:32:53] [V] [TRT] /bert/Gather [Gather] inputs: [/bert/Shape_1_output_0 -> (2)[INT64]], [ortshared_7_0_1_1_token_81 -> ()[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ortshared_7_0_1_1_token_81 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Using Gather axis: 0
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/Gather for ONNX node: /bert/Gather
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/Gather_output_0 for ONNX tensor: /bert/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Gather [Gather] outputs: [/bert/Gather_output_0 -> ()[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Unsqueeze [Unsqueeze]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/Unsqueeze [Unsqueeze]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Unsqueeze [Unsqueeze] inputs: [/bert/Gather_output_0 -> ()[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Original shape: (), unsqueezing to: (1,)
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_35 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/Unsqueeze for ONNX node: /bert/Unsqueeze
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/Unsqueeze_output_0 for ONNX tensor: /bert/Unsqueeze_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Unsqueeze [Unsqueeze] outputs: [/bert/Unsqueeze_output_0 -> (1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Concat [Concat]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/Concat [Concat]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/Unsqueeze_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/Unsqueeze_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Concat [Concat] inputs: [/bert/Unsqueeze_output_0 -> (1)[INT64]], [/bert/embeddings/Unsqueeze_output_0 -> (1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/Concat for ONNX node: /bert/Concat
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/Concat_output_0 for ONNX tensor: /bert/Concat_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/Concat [Concat] outputs: [/bert/Concat_output_0 -> (2)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/ConstantOfShape [ConstantOfShape]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/ConstantOfShape [ConstantOfShape]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/Concat_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/ConstantOfShape [ConstantOfShape] inputs: [/bert/Concat_output_0 -> (2)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_38 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeSlice_39 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/ConstantOfShape_output_0 for ONNX tensor: /bert/ConstantOfShape_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/ConstantOfShape [ConstantOfShape] outputs: [/bert/ConstantOfShape_output_0 -> (-1, -1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/token_type_embeddings/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/token_type_embeddings/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.embeddings.token_type_embeddings.weight
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/ConstantOfShape_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/token_type_embeddings/Gather [Gather] inputs: [bert.embeddings.token_type_embeddings.weight -> (2, 768)[FLOAT]], [/bert/ConstantOfShape_output_0 -> (-1, -1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.embeddings.token_type_embeddings.weight required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Using Gather axis: 0
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_castHelper_40 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/token_type_embeddings/Gather for ONNX node: /bert/embeddings/token_type_embeddings/Gather
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/token_type_embeddings/Gather_output_0 for ONNX tensor: /bert/embeddings/token_type_embeddings/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/token_type_embeddings/Gather [Gather] outputs: [/bert/embeddings/token_type_embeddings/Gather_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/word_embeddings/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/word_embeddings/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.embeddings.word_embeddings.weight
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: input_ids
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/word_embeddings/Gather [Gather] inputs: [bert.embeddings.word_embeddings.weight -> (21128, 768)[FLOAT]], [input_ids -> (-1, -1)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.embeddings.word_embeddings.weight required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Using Gather axis: 0
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_castHelper_41 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/word_embeddings/Gather for ONNX node: /bert/embeddings/word_embeddings/Gather
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/word_embeddings/Gather_output_0 for ONNX tensor: /bert/embeddings/word_embeddings/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/word_embeddings/Gather [Gather] outputs: [/bert/embeddings/word_embeddings/Gather_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/word_embeddings/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/token_type_embeddings/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Add [Add] inputs: [/bert/embeddings/word_embeddings/Gather_output_0 -> (-1, -1, 768)[FLOAT]], [/bert/embeddings/token_type_embeddings/Gather_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/Add for ONNX node: /bert/embeddings/Add
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/Add_output_0 for ONNX tensor: /bert/embeddings/Add_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Add [Add] outputs: [/bert/embeddings/Add_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/embeddings/Add_1 [Add]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/embeddings/Add_1 [Add]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/Add_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/position_embeddings/Gather_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Add_1 [Add] inputs: [/bert/embeddings/Add_output_0 -> (-1, -1, 768)[FLOAT]], [/bert/embeddings/position_embeddings/Gather_output_0 -> (1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/embeddings/Add_1 for ONNX node: /bert/embeddings/Add_1
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/Add_1_output_0 for ONNX tensor: /bert/embeddings/Add_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/embeddings/Add_1 [Add] outputs: [/bert/embeddings/Add_1_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: LayerNormalization [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/Add_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.embeddings.LayerNorm.weight
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.embeddings.LayerNorm.bias
+[07/22/2024-02:32:53] [V] [TRT] LayerNormalization [LayerNormalization] inputs: [/bert/embeddings/Add_1_output_0 -> (-1, -1, 768)[FLOAT]], [bert.embeddings.LayerNorm.weight -> (768)[FLOAT]], [bert.embeddings.LayerNorm.bias -> (768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.embeddings.LayerNorm.weight required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.embeddings.LayerNorm.bias required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_44 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_Broadcast required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_45 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_Broadcast_46 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/embeddings/LayerNorm/Add_1_output_0 for ONNX tensor: /bert/embeddings/LayerNorm/Add_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] LayerNormalization [LayerNormalization] outputs: [/bert/embeddings/LayerNorm/Add_1_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/LayerNorm/Add_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: onnx::MatMul_1552
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/key/MatMul [MatMul] inputs: [/bert/embeddings/LayerNorm/Add_1_output_0 -> (-1, -1, 768)[FLOAT]], [onnx::MatMul_1552 -> (768, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: onnx::MatMul_1552 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_47 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_Broadcast_48 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/key/MatMul for ONNX node: /bert/encoder/layer.0/attention/self/key/MatMul
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/key/MatMul_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/key/MatMul_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/key/MatMul [MatMul] outputs: [/bert/encoder/layer.0/attention/self/key/MatMul_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.encoder.layer.0.attention.self.key.bias
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/encoder/layer.0/attention/self/key/MatMul_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/key/Add [Add] inputs: [bert.encoder.layer.0.attention.self.key.bias -> (768)[FLOAT]], [/bert/encoder/layer.0/attention/self/key/MatMul_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.encoder.layer.0.attention.self.key.bias required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_49 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_Broadcast_50 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/key/Add for ONNX node: /bert/encoder/layer.0/attention/self/key/Add
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/key/Add_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/key/Add_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/key/Add [Add] outputs: [/bert/encoder/layer.0/attention/self/key/Add_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/encoder/layer.0/attention/self/key/Add_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_1_4_0_token_73
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Reshape [Reshape] inputs: [/bert/encoder/layer.0/attention/self/key/Add_output_0 -> (-1, -1, 768)[FLOAT]], [ortshared_7_1_4_0_token_73 -> (4)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_51 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/Reshape for ONNX node: /bert/encoder/layer.0/attention/self/Reshape
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/Reshape_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/Reshape_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Reshape [Reshape] outputs: [/bert/encoder/layer.0/attention/self/Reshape_output_0 -> (-1, -1, 12, 64)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/encoder/layer.0/attention/self/Reshape_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Transpose_2 [Transpose] inputs: [/bert/encoder/layer.0/attention/self/Reshape_output_0 -> (-1, -1, 12, 64)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/Transpose_2 for ONNX node: /bert/encoder/layer.0/attention/self/Transpose_2
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/Transpose_2_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/Transpose_2_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Transpose_2 [Transpose] outputs: [/bert/encoder/layer.0/attention/self/Transpose_2_output_0 -> (-1, 12, 64, -1)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/embeddings/LayerNorm/Add_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: onnx::MatMul_1551
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/query/MatMul [MatMul] inputs: [/bert/embeddings/LayerNorm/Add_1_output_0 -> (-1, -1, 768)[FLOAT]], [onnx::MatMul_1551 -> (768, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: onnx::MatMul_1551 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_52 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_Broadcast_53 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/query/MatMul for ONNX node: /bert/encoder/layer.0/attention/self/query/MatMul
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/query/MatMul_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/query/MatMul_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/query/MatMul [MatMul] outputs: [/bert/encoder/layer.0/attention/self/query/MatMul_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: bert.encoder.layer.0.attention.self.query.bias
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/encoder/layer.0/attention/self/query/MatMul_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/query/Add [Add] inputs: [bert.encoder.layer.0.attention.self.query.bias -> (768)[FLOAT]], [/bert/encoder/layer.0/attention/self/query/MatMul_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: bert.encoder.layer.0.attention.self.query.bias required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_54 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_Broadcast_55 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/query/Add for ONNX node: /bert/encoder/layer.0/attention/self/query/Add
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/query/Add_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/query/Add_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/query/Add [Add] outputs: [/bert/encoder/layer.0/attention/self/query/Add_output_0 -> (-1, -1, 768)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/encoder/layer.0/attention/self/query/Add_output_0
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: ortshared_7_1_4_0_token_73
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Reshape_2 [Reshape] inputs: [/bert/encoder/layer.0/attention/self/query/Add_output_0 -> (-1, -1, 768)[FLOAT]], [ortshared_7_1_4_0_token_73 -> (4)[INT64]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: ONNXTRT_ShapeShuffle_56 required by ONNX-TRT
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/Reshape_2 for ONNX node: /bert/encoder/layer.0/attention/self/Reshape_2
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/Reshape_2_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/Reshape_2_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Reshape_2 [Reshape] outputs: [/bert/encoder/layer.0/attention/self/Reshape_2_output_0 -> (-1, -1, 12, 64)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Parsing node: /bert/encoder/layer.0/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Searching for input: /bert/encoder/layer.0/attention/self/Reshape_2_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Transpose_1 [Transpose] inputs: [/bert/encoder/layer.0/attention/self/Reshape_2_output_0 -> (-1, -1, 12, 64)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Registering layer: /bert/encoder/layer.0/attention/self/Transpose_1 for ONNX node: /bert/encoder/layer.0/attention/self/Transpose_1
+[07/22/2024-02:32:53] [V] [TRT] Registering tensor: /bert/encoder/layer.0/attention/self/Transpose_1_output_0 for ONNX tensor: /bert/encoder/layer.0/attention/self/Transpose_1_output_0
+[07/22/2024-02:32:53] [V] [TRT] /bert/encoder/layer.0/attention/self/Transpose_1 [Transpose] outputs: [/bert/encoder/layer.0/attention/self/Transpose_1_output_0 -> (-1, 12, -1, 64)[FLOAT]], 
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Unsqueeze_2 [Unsqueeze]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Unsqueeze_3 [Unsqueeze]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Cast [Cast]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Sub [Sub]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/Mul [Mul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_135 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.0/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_136 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_137 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_124 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.1/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_138 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_139 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_125 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.2/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_140 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_141 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_126 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.3/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_142 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_143 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_127 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.4/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_144 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_145 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_128 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.5/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_146 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_147 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_129 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.6/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_148 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_149 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_130 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.7/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_150 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_151 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_131 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.8/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_152 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_153 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_132 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.9/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_154 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_155 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_133 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.10/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_156 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/key/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/key/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Reshape [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Transpose_2 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/query/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/query/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Reshape_2 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Transpose_1 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/MatMul_FusedMatMulAndScale [FusedMatMul]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedMatMul. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedMatMul creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Softmax [Softmax]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/value/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/value/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Reshape_1 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Transpose [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/MatMul_1 [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Transpose_3 [Transpose]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/self/Reshape_3 [Reshape]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/attention/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_157 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/intermediate/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/intermediate/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: Gelu_token_134 [Gelu]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/output/dense/MatMul [MatMul]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/output/dense/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /bert/encoder/layer.11/output/Add [Add]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: LayerNormalization_token_158 [LayerNormalization]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /pooler/Gather [Gather]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: fused /classifier/Gemm [FusedGemm]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedGemm. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedGemm creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedGemm creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /classifier_domain/classifier_domain.0/Gemm [Gemm]
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: fused /classifier_domain/classifier_domain.1/Gemm [FusedGemm]
+[07/22/2024-02:32:53] [I] [TRT] No checker registered for op: FusedGemm. Attempting to check as plugin.
+[07/22/2024-02:32:53] [V] [TRT] Local registry did not find FusedGemm creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Global registry did not find FusedGemm creator. Will try parent registry if enabled.
+[07/22/2024-02:32:53] [V] [TRT] Static check for parsing node: /classifier_domain/classifier_domain.3/Sigmoid [Sigmoid]
+[07/22/2024-02:32:53] [I] Finished parsing network model. Parse time: 1.04092
+&&&& FAILED TensorRT.trtexec [TensorRT v100001] # trtexec --onnx=/home/wzp/t5-onnx/bert.onnx --saveEngine=/home/wzp/t5-onnx/bert.engine --minShapes=input_ids:1x1,attention_mask:1x1 --optShapes=input_ids:1x20,attention_mask:1x20 --maxShapes=input_ids:1x100,attention_mask:1x20 --fp16 --verbose

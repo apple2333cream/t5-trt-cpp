@@ -11,7 +11,7 @@
 #include <iostream>
 // #include "t5_logger.h"
 
-#define MAX_SEQ_LENGTH 100
+#define MAX_SEQ_LENGTH 18
 
 using namespace nvinfer1;
 
@@ -22,7 +22,7 @@ public:
     ~T5Inference()
     {
         gLogInfo << "~T5Inference\n";
-        gpuErrChk(cudaStreamDestroy(mStream));
+        // gpuErrChk(cudaStreamDestroy(mStream));
         for (auto &buf : mDeviceBuffers)
         {
             gpuErrChk(cudaFree(buf));
@@ -31,10 +31,10 @@ public:
     };
     int Init(const std::string &enginePath, const int maxBatchSize, const int seqLength, const bool enableGraph);
     void allocateBindings(const int maxBatchSize);
-    void prepare(int profIdx, int batchSize);
     void reportTiming(int batchIndex, int batchSize);
-    // void RunT5(const void *inputIds );
     void InferT5(std::vector<int> inputs);
+    void InferEncoder(std::vector<int> inputs);
+    void InferDecoder(std::vector<int> inputs);
 
 private:
     static const int kBERT_INPUT_NUM = 1; // input_ids
@@ -43,9 +43,10 @@ private:
     TrtUniquePtr<IRuntime> mRuntime{nullptr};
     TrtUniquePtr<ICudaEngine> mEngine{nullptr};
     TrtUniquePtr<IExecutionContext> mContext{nullptr};
+    TrtUniquePtr<IExecutionContext> mContextDec{nullptr};
     bool mEnableVariableLen = true; //是否变长
     std::vector<int> mCuSeqlens;
-    cudaStream_t mStream{NULL};
+    // cudaStream_t mStream{NULL};
     std::vector<void *> mDeviceBuffers; //输入输出的GPU缓存
     std::vector<float> mHostOutput; //CPU输出存放
     std::vector<size_t> mInputSizes;
