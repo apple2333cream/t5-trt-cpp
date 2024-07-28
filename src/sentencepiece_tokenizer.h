@@ -9,7 +9,6 @@ public:
   SentencePieceTokenizer(){};
   ~SentencePieceTokenizer(){};
   void InitTokenizer(const std::string &model_blob);
-  // int TokenizerUninit();
 
   std::vector<int32_t> Encode(const std::string &text);
   std::vector<std::string> EncodStr(const std::string &text);

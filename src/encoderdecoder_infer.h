@@ -24,14 +24,17 @@ public:
     ~T5Inference()
     {
         gLogInfo << "~T5Inference\n";
-        // gpuErrChk(cudaStreamDestroy(mStream));
+        gpuErrChk(cudaStreamDestroy(mStream));
+        gLogInfo << "~cudaStreamDestroy\n";
         for (auto &buf : mDeviceBuffers)
         {
             gpuErrChk(cudaFree(buf));
+            // cudaFree(buf);
         }
         for (auto &buf : mDeviceBuffersDec)
         {
             gpuErrChk(cudaFree(buf));
+            // cudaFree(buf);
         }
        
     };
@@ -39,14 +42,15 @@ public:
 
     void allocateBindings(const int maxBatchSize);
     void allocateBindingsDec(const int maxBatchSize);
-    void reportTiming(int batchIndex, int batchSize);
-    void InferT5(std::vector<int64_t> inputs);
-    std::string InferEncoderDecoder(std::vector<int64_t> input_ids);
+    void reportTiming(int batchIndex, int batchSize,int testNum);
+    std::string InferEncoderDecoder(const std::string input_text);
 
-    void* InferEncoder(std::vector<int64_t> inputs);
-    std::vector<std::vector<std::vector<float>>> InferDecoder(std::vector<int64_t> input_ids,std::vector<float> encoder_hidden_states);
+    void* InferEncoder(std::vector<int64_t> inputs,const int batch_size);
+    std::vector<std::vector<std::vector<float>>> InferDecoder(std::vector<int64_t> input_ids,std::vector<float> encoder_hidden_states,const int seq_length,const int batch_size);
     std::vector<int64_t> PreProcessing(const std::string &text);
     std::string PostProcessing(const std::vector<int> result);
+    void InferForReport(const int test_num,const std::string input_text);
+
 private:
    std::shared_ptr<SentencePieceTokenizer> tokenizer_ = std::make_shared<SentencePieceTokenizer>();
     static const int ENC_INPUT_NUM = 1; // input_ids
@@ -62,7 +66,7 @@ private:
     TrtUniquePtr<IExecutionContext> mContextDec{nullptr};
     bool mEnableVariableLen = true; //是否变长
     std::vector<int> mCuSeqlens;
-    // cudaStream_t mStream{NULL};
+    cudaStream_t mStream{NULL};
     std::vector<void *> mDeviceBuffers; //输入输出的EncoderGPU缓存
     std::vector<float> mHostOutput; //CPU输出存放
     std::vector<void *> mDeviceBuffersDec; //输入输出的EncoderGPU缓存
