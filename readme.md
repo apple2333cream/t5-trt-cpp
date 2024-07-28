@@ -11,20 +11,20 @@
       python3.10
       pip install  -r HuggingFace/requirements.txt
 #### 2.模型转换   
-  - 2.1 huggingface->onnx   
-  - 2.2 onnx->tensrrt engine   
-    cd ./HuggingFace
-    bash gen_t5_bs1_beam2.sh   
-    说明，encoder和decoder分开转换，若合成一个模型导出在转trt时需要手写BeamSearch（下个版本中会导出一个模型进行推理）
+        2.1 huggingface->onnx   
+        2.2 onnx->tensrrt engine   
+        cd ./HuggingFace
+        bash gen_t5_bs1_beam2.sh   
+        说明，encoder和decoder分开转换，若合成一个模型导出在转trt时需要手写BeamSearch（下个版本中会导出一个模型进行推理）
   
 #### 3.代码编译  
   mkdir build && cd build 
   make  -j8  
 
 #### 4.运行示例  
-   - demo ./t5_engine --use_mode=0
-   - test ./t5_engine --use_mode=1
-   - api ./t5_engine --use_mode=2
+    - demo ./t5_engine --use_mode=0
+    - test ./t5_engine --use_mode=1
+    - api ./t5_engine --use_mode=2
      服务请求示例： 
     curl -X POST -d "{ "RequestID": "65423221", "InputText": "translate English to French: I was a victim of a series of accidents." }" http://127.0.0.1:17653/T5/register  
 
