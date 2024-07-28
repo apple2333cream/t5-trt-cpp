@@ -14,7 +14,7 @@
         2.1 huggingface->onnx   
         2.2 onnx->tensrrt engine   
         cd ./HuggingFace
-        bash gen_t5_bs1_beam2.sh   
+        bash gen_t5_bs1_beam2.sh   (fp16)
         说明，encoder和decoder分开转换，若合成一个模型导出在转trt时需要手写BeamSearch（下个版本中会导出一个模型进行推理）
   
 #### 3.代码编译  
@@ -38,9 +38,15 @@
     ├── third_party
 
 #### benchmark
-    以t5-base为例
-    GPU显存占用 1.3Gb  
-    平均推理耗时184ms 
+    以t5-base为例,tensorrt(fp16)相较于原生的pytorch有2.78倍的加速
+
+    CPU 内存占用2.2G  
+    | 推理框架 | 显存(Gb) | 时间(ms) |
+    |---------------|----------|--------|
+    | torch         | 1.4      |513     |
+    | tensorrt(fp32)| 1.2      |275     |
+    | tensorrt(fp16)| 1.2      |184     |
+    
     测试环境 V100 ,tensorrt 10.0.1,cudnn8.9.4, cuda12.4
 
 #### TODO List 
