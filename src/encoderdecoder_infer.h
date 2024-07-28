@@ -9,7 +9,9 @@
 #include <string.h>
 #include <vector>
 #include <iostream>
-// #include "t5_logger.h"
+#include <cmath>
+#include "sentencepiece_tokenizer.h"
+
 
 #define MAX_SEQ_LENGTH 18
 
@@ -27,28 +29,44 @@ public:
         {
             gpuErrChk(cudaFree(buf));
         }
+        for (auto &buf : mDeviceBuffersDec)
+        {
+            gpuErrChk(cudaFree(buf));
+        }
        
     };
-    int Init(const std::string &enginePath, const int maxBatchSize, const int seqLength, const bool enableGraph);
-    void allocateBindings(const int maxBatchSize);
-    void reportTiming(int batchIndex, int batchSize);
-    void InferT5(std::vector<int> inputs);
-    void InferEncoder(std::vector<int> inputs);
-    void InferDecoder(std::vector<int> inputs);
+    int Init(const std::string &enginePath,const std::string &enginePathDec, const std::string &spiece_model,const int maxBatchSize, const int seqLength);
 
+    void allocateBindings(const int maxBatchSize);
+    void allocateBindingsDec(const int maxBatchSize);
+    void reportTiming(int batchIndex, int batchSize);
+    void InferT5(std::vector<int64_t> inputs);
+    std::string InferEncoderDecoder(std::vector<int64_t> input_ids);
+
+    void* InferEncoder(std::vector<int64_t> inputs);
+    std::vector<std::vector<std::vector<float>>> InferDecoder(std::vector<int64_t> input_ids,std::vector<float> encoder_hidden_states);
+    std::vector<int64_t> PreProcessing(const std::string &text);
+    std::string PostProcessing(const std::vector<int> result);
 private:
-    static const int kBERT_INPUT_NUM = 1; // input_ids
+   std::shared_ptr<SentencePieceTokenizer> tokenizer_ = std::make_shared<SentencePieceTokenizer>();
+    static const int ENC_INPUT_NUM = 1; // input_ids
+    static const int DEC_INPUT_NUM = 2; // input_ids,encoder_hidden_states
+    static const int VOCAB_SIZE = 32128; 
+    static const int HIDDEN_NUM = 768; 
     const int mSeqLength = MAX_SEQ_LENGTH;
     const bool mEnableGraph = true;
     TrtUniquePtr<IRuntime> mRuntime{nullptr};
     TrtUniquePtr<ICudaEngine> mEngine{nullptr};
+    TrtUniquePtr<ICudaEngine> mEngineDec{nullptr};
     TrtUniquePtr<IExecutionContext> mContext{nullptr};
     TrtUniquePtr<IExecutionContext> mContextDec{nullptr};
     bool mEnableVariableLen = true; //是否变长
     std::vector<int> mCuSeqlens;
     // cudaStream_t mStream{NULL};
-    std::vector<void *> mDeviceBuffers; //输入输出的GPU缓存
+    std::vector<void *> mDeviceBuffers; //输入输出的EncoderGPU缓存
     std::vector<float> mHostOutput; //CPU输出存放
+    std::vector<void *> mDeviceBuffersDec; //输入输出的EncoderGPU缓存
+    std::vector<float> mHostOutputDec; //CPU输出存放
     std::vector<size_t> mInputSizes;
     size_t mOutputSize = 1*MAX_SEQ_LENGTH*768;
     std::vector<int> mOutputDims;

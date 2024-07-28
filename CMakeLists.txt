@@ -15,11 +15,9 @@ include_directories(${PROJECT_SOURCE_DIR}/third_party/spdlog_include)
 include_directories(${PROJECT_SOURCE_DIR}/third_party/json_include)
 include_directories(${PROJECT_SOURCE_DIR}/third_party/http)
 
-# set(SENTENCEPIECE_DIR /workspace/sentencepiece-0.2.0-Linux)
-# link_directories(${SENTENCEPIECE_DIR}/lib)
-# include_directories(${SENTENCEPIECE_DIR}/include)
-
-
+set(SENTENCEPIECE_DIR /workspace/sentencepiece-0.2.0-Linux)
+link_directories(${SENTENCEPIECE_DIR}/lib)
+include_directories(${SENTENCEPIECE_DIR}/include)
 
 find_package(CUDA)
 
@@ -60,4 +58,5 @@ target_link_libraries(t5_engine
     ${CUDA_LIBRARIES}
     nvinfer
     nvinfer_plugin
+    libsentencepiece.a
 )
