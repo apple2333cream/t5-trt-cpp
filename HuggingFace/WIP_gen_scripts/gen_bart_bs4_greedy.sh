@@ -1,1 +1,0 @@
-python3 build_bart_trt.py --min-batch-size 1 --opt-batch-size 2 --max-batch-size 4 --trt-model-path ./models

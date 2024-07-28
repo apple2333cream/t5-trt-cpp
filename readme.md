@@ -13,7 +13,7 @@
 #### 2.模型转换   
   - 2.1 huggingface->onnx   
   - 2.2 onnx->tensrrt engine   
-    cd ./HuggingFace
+    cd ./HuggingFace(from https://github.com/kshitizgupta21/triton-trt-oss.git)
     bash gen_t5_bs1_beam2.sh   
     说明，encoder和decoder分开转换，若合成一个模型导出在转trt时需要手写BeamSearch（下个版本中会导出一个模型进行推理）
   
